@@ -97,3 +97,67 @@
     transform: translateY(5px);
   }
 }
+
+/* CSS */
+.scroll-section {
+  padding: 50px 20px;
+  background: linear-gradient(180deg, #0f0f23 0%, #1a1a3e 100%);
+  min-height: 100vh;
+}
+
+.scroll-item {
+  max-width: 600px;
+  margin: 50px auto 0;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* フェードアップ3D */
+.scroll-item[data-animation="fade-up-3d"] {
+  transform: perspective(1000px) translateY(100px) rotateX(10deg);
+}
+
+.scroll-item[data-animation="fade-up-3d"].is-visible {
+  opacity: 1;
+  transform: perspective(1000px) translateY(0) rotateX(0);
+}
+
+/* 回転イン */
+.scroll-item[data-animation="rotate-in"] {
+  transform: perspective(1000px) rotateY(-30deg) translateX(-100px);
+}
+
+.scroll-item[data-animation="rotate-in"].is-visible {
+  opacity: 1;
+  transform: perspective(1000px) rotateY(0) translateX(0);
+}
+
+/* スケールアップ */
+.scroll-item[data-animation="scale-up"] {
+  transform: perspective(1000px) translateZ(-200px) scale(0.8);
+}
+
+.scroll-item[data-animation="scale-up"].is-visible {
+  opacity: 1;
+  transform: perspective(1000px) translateZ(0) scale(1);
+}
+
+.item-content {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 48px;
+}
+
+.item-content h3 {
+  color: #ffffff;
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.item-content p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  line-height: 1.8;
+}
