@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
  
             function drawAxesAndLabels() {
                 ctx.strokeStyle = "#aaa";
-                ctx.fillStyle = "navy";
+                ctx.fillStyle = "#1a1a1a";
                 ctx.font = "20px serif";
  
                 for (let i = 0; i < labels.length; i++) {
@@ -161,14 +161,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 ctx.closePath();
  
-                ctx.fillStyle = "rgba(54, 162, 235, 0.3)";
+                ctx.fillStyle = "rgba(232, 120, 235, 0.3)";
                 ctx.fill();
  
-                ctx.strokeStyle = "rgba(54, 162, 235, 0.9)";
+                ctx.strokeStyle = "rgba(201, 80, 120, 0.9)";
                 ctx.lineWidth = 2;
                 ctx.stroke();
  
-                ctx.fillStyle = "rgba(54, 162, 235, 1)";
+                ctx.fillStyle = "rgba(200, 72, 125, 1)";
                 for (let i = 0; i < currentValues.length; i++) {
                     const valueRatio = currentValues[i] / maxValue;
                     const r = radius * valueRatio;

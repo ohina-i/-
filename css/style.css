@@ -1,27 +1,44 @@
 @charset "utf-8";
 
 /* =====================
-   CSS VARIABLES — 白ピンクパレット
-   テーマ：ホワイト × チェリーブロッサム
+   CSS VARIABLES
+   テーマ：地雷系かわいい
+   白 × 淡ピンク × 黒 × リボン × ハート
 ===================== */
 :root {
-  --pink:           #f472b6;
-  --pink-deep:      #ec4899;
-  --pink-light:     #fce7f3;
-  --pink-pale:      #fff0f7;
-  --lavender:       #d8b4fe;
-  --lavender-light: #f5f0ff;
-  --cream:          #fff8f4;
-  --white:          #ffffff;
-  --text-dark:      #5b1a3a;
-  --text-mid:       #9d3f6e;
-  --text-light:     #c47da0;
-  --shadow-pink:    rgba(244,114,182,0.25);
+  --white:         #ffffff;
+  --off-white:     #fdf8fb;
+  --pink-pale:     #fce8f0;
+  --pink-soft:     #f9d0e2;
+  --pink:          #e8789e;
+  --pink-deep:     #c95078;
+  --black:         #1a1a1a;
+  --black-soft:    #2d2d2d;
+  --text-dark:     #1a1a1a;
+  --text-mid:      #5a2a3a;
+  --text-light:    #a06070;
+  --shadow:        rgba(201,80,120,0.2);
 }
 
 body {
   max-width: 100%;
-  background: var(--white);
+  background: var(--off-white);
+}
+
+/* =====================
+   ハートCSS部品（再利用）
+===================== */
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+@keyframes floatHeart {
+  0%,100% { transform: translateY(0) rotate(-10deg); opacity: 0.5; }
+  50%      { transform: translateY(-12px) rotate(10deg); opacity: 0.9; }
+}
+@keyframes ribbonSway {
+  0%,100% { transform: rotate(-2deg); }
+  50%      { transform: rotate(2deg); }
 }
 
 /* =====================
@@ -34,41 +51,78 @@ body {
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(ellipse 80% 60% at 30% 20%, rgba(244,114,182,0.18) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 75% 75%, rgba(216,180,254,0.2) 0%, transparent 60%),
-    linear-gradient(160deg, #fff0f7 0%, #fce7f3 35%, #f5f0ff 70%, #fff0f7 100%);
+    radial-gradient(ellipse 70% 55% at 20% 20%, rgba(249,208,226,0.6) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 45% at 80% 75%, rgba(232,120,158,0.2) 0%, transparent 60%),
+    linear-gradient(160deg, #ffffff 0%, #fce8f0 40%, #fdf0f5 70%, #ffffff 100%);
   position: relative;
   padding: 40px 20px;
   text-align: center;
   overflow: hidden;
 }
 
+/* 背景ハート散らし */
 .hero-typography::before {
-  content: '';
+  content: '♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡ ♡';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle 2px, rgba(244,114,182,0.25) 0%, transparent 100%);
-  background-size: 48px 48px;
+  font-size: 18px;
+  color: rgba(232,120,158,0.1);
+  word-spacing: 28px;
+  line-height: 3.2;
+  letter-spacing: 20px;
   pointer-events: none;
+  overflow: hidden;
+}
+
+/* ヒーロー左上ハート装飾（🎀廃止） */
+.hero-typography::after {
+  content: '♥';
+  position: absolute;
+  top: 28px;
+  left: 32px;
+  font-size: 28px;
+  color: rgba(232,120,158,0.35);
+  animation: heartbeat 2s ease-in-out infinite;
 }
 
 /* =====================
-   ★ Portfolioタイトル
-   グラデーションをやめてソリッドカラーで確実に表示
+   Portfolio タイトル
 ===================== */
 .split-text {
   font-size: clamp(32px, 8vw, 80px);
   font-weight: 900;
-  color: var(--pink-deep);
+  color: var(--black-soft);
   text-shadow:
-    0 2px 16px rgba(244,114,182,0.35),
-    0 0  40px rgba(244,114,182,0.15);
+    0 2px 0 rgba(20,10,15,0.12),
+    0 4px 20px rgba(232,120,158,0.18);
   margin-bottom: 32px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0 16px;
   font-family: 'Georgia', serif;
+  letter-spacing: 0.04em;
+  position: relative;
+}
+
+/* タイトル両端のハート */
+.split-text::before {
+  content: '♥';
+  position: absolute;
+  left: -48px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 28px;
+  color: var(--pink);
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+.split-text::after {
+  content: '♥';
+  position: absolute;
+  right: -48px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 28px;
+  color: var(--pink);
+  animation: heartbeat 1.8s ease-in-out infinite 0.9s;
 }
 
 .split-text .char {
@@ -84,11 +138,11 @@ body {
 
 .typewriter {
   font-size: clamp(18px, 3vw, 24px);
-  color: var(--text-mid);
+  color: var(--pink-deep);
   min-height: 36px;
   position: relative;
   font-family: 'Georgia', serif;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .typewriter::after {
@@ -116,7 +170,7 @@ body {
 .scroll-text {
   color: var(--text-light);
   font-size: 12px;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-transform: uppercase;
   font-family: serif;
 }
@@ -136,15 +190,7 @@ body {
 /* =====================
    HEADER / NAV
 ===================== */
-.heads {
-  position: fixed;
-  top: 10px;
-  left: 15px;
-  display: flex;
-  gap: 40px;
-  align-items: center;
-  z-index: 1000;
-}
+
 
 .menu {
   position: fixed;
@@ -161,7 +207,7 @@ body {
 
 .menu a {
   text-decoration: none;
-  color: var(--text-dark);
+  color: var(--black-soft);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -169,23 +215,28 @@ body {
   font-size: clamp(13px, 1.8vw, 20px);
   font-weight: bold;
   transition: all 0.25s;
+  letter-spacing: 0.03em;
+}
+
+/* ナビリンク：ホバー時のみハート・activeは色変化のみ */
+.menu a::before {
+  content: none;
 }
 
 .menu a::after {
-  content: "⌃";
+  content: '♥';
   display: block;
-  font-size: 14px;
+  font-size: 11px;
   text-align: center;
-  margin-top: 4px;
+  margin-top: 3px;
   opacity: 0;
-  transform: translateY(-6px);
-  transition: 0.25s;
+  transform: translateY(-4px);
+  transition: opacity 0.25s, transform 0.25s;
   color: var(--pink);
 }
 
-.menu a.active::after {
-  opacity: 1;
-  transform: translateY(0);
+.menu a.active {
+  color: var(--pink-deep);
 }
 
 .menu a:hover {
@@ -194,8 +245,8 @@ body {
 }
 
 .menu a:hover::after {
-  transform: translateY(-4px);
   opacity: 1;
+  transform: translateY(0);
 }
 
 /* =====================
@@ -203,21 +254,33 @@ body {
 ===================== */
 .scroll-section {
   padding: 50px 20px;
-  background: linear-gradient(180deg,
-    var(--pink-pale) 0%,
-    var(--lavender-light) 50%,
-    var(--pink-pale) 100%);
+  background: linear-gradient(170deg,
+    #ffffff       0%,
+    var(--pink-pale)  30%,
+    #fdf4f8       65%,
+    #ffffff       100%);
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
+/* 背景ハートパターン */
 .scroll-section::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle 1.5px, rgba(244,114,182,0.18) 0%, transparent 100%);
-  background-size: 36px 36px;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ctext y='28' font-size='16' fill='rgba(232,120,158,0.1)'%3E♡%3C/text%3E%3C/svg%3E");
+  background-size: 40px 40px;
   pointer-events: none;
+}
+
+/* aタグの青い線・色を消す */
+.scroll-item a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .scroll-item {
@@ -251,30 +314,67 @@ body {
   transform: perspective(1000px) translateZ(0) scale(1);
 }
 
+/* カード：白地＋黒細ボーダー＋ピンクシャドウ */
 .item-content {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(16px);
-  border: 1.5px solid rgba(244,114,182,0.28);
-  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(20,10,15,0.12);
+  border-radius: 4px;
   padding: 48px;
   font-family: serif;
+  position: relative;
   box-shadow:
-    0 8px 32px rgba(244,114,182,0.1),
-    inset 0 1px 0 rgba(255,255,255,1);
+    4px 4px 0 rgba(201,80,120,0.22),
+    0 8px 32px rgba(201,80,120,0.1),
+    inset 0 0 0 5px rgba(249,208,226,0.3);
   transition: box-shadow 0.3s, transform 0.3s;
+  overflow: hidden;
+}
+
+/* カード四隅リボン */
+.item-content::before {
+  content: '🎀';
+  position: absolute;
+  top: 10px; right: 14px;
+  font-size: 18px;
+  animation: ribbonSway 3s ease-in-out infinite;
+  line-height: 1;
+}
+
+/* カード右下ハート */
+.item-content::after {
+  content: '♥ ♥ ♥';
+  position: absolute;
+  bottom: 12px; right: 16px;
+  font-size: 10px;
+  color: rgba(232,120,158,0.35);
+  letter-spacing: 2px;
 }
 
 .item-content:hover {
   box-shadow:
-    0 20px 50px rgba(244,114,182,0.18),
-    0 4px 16px rgba(244,114,182,0.1);
-  transform: translateY(-6px);
+    5px 5px 0 rgba(201,80,120,0.3),
+    0 20px 50px rgba(201,80,120,0.15),
+    inset 0 0 0 5px rgba(249,208,226,0.5);
+  transform: translateY(-5px) translateX(-2px);
 }
 
 .item-content h3 {
-  color: var(--pink-deep);
+  color: var(--black-soft);
   font-size: 28px;
   margin-bottom: 16px;
+  letter-spacing: 0.04em;
+}
+
+/* h3 の下にリボン装飾ライン */
+.item-content h3::after {
+  content: '── ♥ ──';
+  display: block;
+  font-size: 12px;
+  color: rgba(232,120,158,0.5);
+  letter-spacing: 4px;
+  margin-top: 6px;
+  font-weight: normal;
 }
 
 .item-content p {
@@ -288,7 +388,9 @@ body {
   height: auto;
   display: block;
   margin: 0 auto;
-  border-radius: 14px;
+  border-radius: 2px;
+  filter: contrast(1.02) saturate(0.95);
+  border: 1px solid rgba(20,10,15,0.07);
 }
 
 h1 {
@@ -315,16 +417,25 @@ h1 {
   text-align: center;
   font-weight: bold;
   color: var(--white);
-  background: linear-gradient(135deg, var(--pink) 0%, var(--lavender) 100%);
+  background: var(--black-soft);
   display: block;
   padding: 14px 20px;
-  width: 150px;
-  border-radius: 50px;
+  width: 160px;
+  border-radius: 2px;
   transition: all 0.35s ease;
   position: relative;
   font-family: serif;
-  box-shadow: 0 4px 20px var(--shadow-pink);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.1em;
+  box-shadow:
+    4px 4px 0 var(--pink),
+    7px 7px 0 rgba(201,80,120,0.18);
+}
+
+/* ボタンのハート装飾（🎀廃止） */
+#viewMore::before {
+  content: '♥ ';
+  font-size: 12px;
+  color: var(--pink-soft);
 }
 
 #viewMore .arrow {
@@ -334,10 +445,12 @@ h1 {
 }
 
 #viewMore:hover {
-  width: 180px;
-  transform: translateY(-4px);
-  box-shadow: 0 10px 35px rgba(244,114,182,0.45);
-  background: linear-gradient(135deg, var(--pink-deep) 0%, #a855f7 100%);
+  width: 190px;
+  transform: translateY(-3px) translateX(-3px);
+  background: var(--pink-deep);
+  box-shadow:
+    6px 6px 0 var(--black-soft),
+    9px 9px 0 rgba(20,10,15,0.1);
 }
 
 #viewMore:hover .arrow {
@@ -348,11 +461,11 @@ h1 {
    SKILL SECTION
 ===================== */
 #skill {
-  background: linear-gradient(160deg,
-    var(--white) 0%,
-    var(--pink-pale) 40%,
-    var(--lavender-light) 70%,
-    var(--pink-pale) 100%);
+  background: linear-gradient(155deg,
+    #ffffff          0%,
+    var(--pink-pale)  35%,
+    #fdf8fb          65%,
+    #ffffff          100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -363,24 +476,38 @@ h1 {
   overflow: hidden;
 }
 
+/* 背景ハート */
 #skill::before {
   content: '';
   position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(244,114,182,0.07) 0%, transparent 70%);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Ctext y='36' font-size='20' fill='rgba(232,120,158,0.07)'%3E♥%3C/text%3E%3C/svg%3E");
+  background-size: 50px 50px;
   pointer-events: none;
 }
 
+/* 左上ハート装飾（🎀廃止） */
+#skill::after {
+  content: '♥';
+  position: absolute;
+  top: 40px; left: 48px;
+  font-size: 36px;
+  color: rgba(232,120,158,0.25);
+  animation: heartbeat 2.5s ease-in-out infinite;
+}
+
 #skill h2 {
-  color: var(--pink-deep);
+  color: var(--black-soft);
   font-family: serif;
   font-size: clamp(36px, 6vw, 60px);
+  letter-spacing: 0.15em;
+  position: relative;
 }
+
+/* h2 タイトル装飾 */
+#skill h2::before { content: '♥ '; color: var(--pink); font-size: 0.7em; }
+#skill h2::after  { content: ' ♥'; color: var(--pink); font-size: 0.7em; }
 
 #skill p {
   font-family: serif;
@@ -388,11 +515,11 @@ h1 {
 }
 
 .skill-title {
-  color: var(--pink-deep);
+  color: var(--black-soft);
   margin-bottom: 20px;
   font-size: 28px;
   font-weight: bold;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
 }
 
 .chart-container {
@@ -400,16 +527,36 @@ h1 {
   min-height: 520px;
   height: auto;
   margin: 0 auto;
-  background: rgba(255,255,255,0.92);
-  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 4px;
   padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  border: 1.5px solid rgba(20,10,15,0.1);
   box-shadow:
-    0 20px 60px rgba(244,114,182,0.13),
-    0 0 0 1.5px rgba(244,114,182,0.18);
+    5px 5px 0 rgba(201,80,120,0.22),
+    0 16px 48px rgba(201,80,120,0.08);
+  position: relative;
+}
+
+/* チャートコーナーハート */
+.chart-container::before {
+  content: '♥';
+  position: absolute;
+  top: 12px; left: 16px;
+  font-size: 16px;
+  color: rgba(232,120,158,0.4);
+  animation: heartbeat 2s ease-in-out infinite;
+}
+.chart-container::after {
+  content: '♥';
+  position: absolute;
+  top: 12px; right: 16px;
+  font-size: 16px;
+  color: rgba(232,120,158,0.4);
+  animation: heartbeat 2s ease-in-out infinite 1s;
 }
 
 .chart-container.active {
@@ -449,13 +596,13 @@ ul img {
   margin: 0 auto 8px;
   max-width: 100%;
   height: auto;
-  filter: drop-shadow(0 2px 6px rgba(244,114,182,0.18));
+  filter: drop-shadow(0 2px 5px rgba(201,80,120,0.15));
   transition: transform 0.3s, filter 0.3s;
 }
 
 .skill-icons img:hover {
-  transform: translateY(-4px) scale(1.06);
-  filter: drop-shadow(0 6px 16px rgba(244,114,182,0.38));
+  transform: translateY(-5px) scale(1.08);
+  filter: drop-shadow(0 6px 14px rgba(201,80,120,0.32));
 }
 
 .skill-icons li:nth-child(1) { grid-column: 1; }
@@ -468,54 +615,83 @@ ul img {
    INTRO SECTION
 ===================== */
 #intro {
-  background: linear-gradient(160deg,
+  background: linear-gradient(155deg,
     var(--pink-pale) 0%,
-    var(--lavender-light) 50%,
-    var(--pink-pale) 100%);
+    #ffffff          40%,
+    var(--pink-soft) 70%,
+    #ffffff          100%);
   padding: 120px 20px;
   display: flex;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 
+/* 左上ハート装飾（🎀廃止） */
 #intro::before {
-  content: '';
+  content: '♥';
   position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 10% 40%, rgba(244,114,182,0.08) 0%, transparent 45%),
-    radial-gradient(circle at 90% 60%, rgba(216,180,254,0.1) 0%, transparent 45%);
-  pointer-events: none;
+  top: 44px; left: 44px;
+  font-size: 32px;
+  color: rgba(232,120,158,0.2);
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+/* 右下ハート群 */
+#intro::after {
+  content: '♥ ♥ ♥';
+  position: absolute;
+  bottom: 44px; right: 52px;
+  font-size: 22px;
+  color: rgba(232,120,158,0.25);
+  letter-spacing: 8px;
+  animation: floatHeart 3s ease-in-out infinite;
 }
 
 #intro h2 {
-  color: var(--pink-deep);
+  color: var(--black-soft);
   padding-right: 50px;
   font-family: serif;
   font-size: clamp(36px, 5vw, 60px);
+  letter-spacing: 0.1em;
 }
 
 .intro-container {
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 255, 255, 0.95);
   width: min(1200px, 92vw);
-  border-radius: 28px;
+  border-radius: 4px;
   padding: 60px;
   display: flex;
   gap: 50px;
   align-items: center;
   font-family: serif;
   font-size: clamp(16px, 2vw, 20px);
+  border: 1.5px solid rgba(20,10,15,0.1);
   box-shadow:
-    0 30px 80px rgba(244,114,182,0.1),
-    0 0 0 1.5px rgba(244,114,182,0.14);
+    6px 6px 0 rgba(201,80,120,0.2),
+    0 20px 60px rgba(201,80,120,0.08);
   color: var(--text-dark);
+  position: relative;
+}
+
+/* コンテナ上部ハート装飾（🎀廃止） */
+.intro-container::before {
+  content: '♥ ♥ ♥';
+  position: absolute;
+  top: -18px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  color: rgba(232,120,158,0.5);
+  letter-spacing: 6px;
+  animation: heartbeat 2s ease-in-out infinite;
+  white-space: nowrap;
 }
 
 .intro-head {
   flex: 1;
   white-space: pre-line;
   color: var(--text-dark);
-  line-height: 1.9;
+  line-height: 2;
 }
 
 .intro-photo {
@@ -525,39 +701,48 @@ ul img {
 
 .intro-photo img {
   width: 100%;
-  border-radius: 20px;
+  border-radius: 2px;
   object-fit: cover;
+  border: 1.5px solid rgba(20,10,15,0.1);
   box-shadow:
-    0 10px 30px rgba(244,114,182,0.18),
-    0 0 0 3px rgba(244,114,182,0.14);
+    5px 5px 0 rgba(201,80,120,0.2),
+    0 8px 24px rgba(201,80,120,0.1);
+  filter: contrast(1.02) saturate(0.95);
 }
 
 /* =====================
    FOOTER / CONTACT
 ===================== */
-footer {
+.footer {
   background: linear-gradient(180deg,
     var(--pink-pale) 0%,
-    var(--pink-light) 100%);
+    var(--off-white) 100%);
   margin-top: auto;
   padding: 20px 0;
-  border-top: 1.5px solid rgba(244,114,182,0.18);
+  border-top: 1.5px solid rgba(20,10,15,0.08);
+  position: relative;
+}
+
+/* フッター上部ハートボーダー（🎀廃止） */
+.footer::before {
+  content: '── ♥ ── ♥ ── ♥ ── ♥ ── ♥ ──';
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(232,120,158,0.4);
+  letter-spacing: 4px;
+  padding: 8px 0 4px;
 }
 
 .footer a {
   text-decoration: none;
   color: var(--text-mid);
-  text-align: right;
   transition: color 0.25s;
 }
 
-.footer a:hover {
-  color: var(--pink-deep);
-}
+.footer a:hover { color: var(--pink-deep); }
 
-.footer p {
-  text-align: center;
-}
+.footer p { text-align: center; }
 
 .small {
   color: var(--text-light);
@@ -565,8 +750,15 @@ footer {
   font-size: 13px;
   display: block;
   text-align: center;
-  margin-top: 12px;
+  margin-top: 60px;
+  /* margin-bottom: 20px; */
+  letter-spacing: 0.05em;
+  padding-bottom: 50px;
 }
+
+/* copyrightにハート */
+.small::before { content: '♥ '; color: var(--pink); }
+.small::after  { content: ' ♥'; color: var(--pink); }
 
 #contact {
   display: flex;
@@ -581,39 +773,60 @@ footer {
 }
 
 .mail a {
-  color: var(--text-mid);
+  color: var(--black-soft);
   font-size: 16px;
-  background: rgba(255,255,255,0.85);
+  background: var(--white);
   padding: 12px 28px;
-  border-radius: 50px;
-  border: 1.5px solid rgba(244,114,182,0.3);
+  border-radius: 2px;
+  border: 1.5px solid rgba(20,10,15,0.12);
   transition: all 0.3s;
   display: inline-block;
   margin: 16px 0;
-  box-shadow: 0 4px 16px rgba(244,114,182,0.08);
+  letter-spacing: 0.02em;
+  box-shadow: 3px 3px 0 rgba(201,80,120,0.22);
+  position: relative;
+  white-space: nowrap;        /* ← 1行強制 */
+  font-size: clamp(12px, 3.5vw, 16px); /* ← 小さい画面でも収まるサイズ */
 }
 
+/* メールリンクの前後ハート */
+.mail a::before { content: '♥ '; color: var(--pink); }
+.mail a::after  { content: ' ♥'; color: var(--pink); }
+
 .mail a:hover {
-  background: var(--pink);
+  background: var(--pink-deep);
   color: var(--white);
-  border-color: var(--pink);
-  box-shadow: 0 8px 28px rgba(244,114,182,0.3);
-  transform: translateY(-2px);
+  border-color: var(--pink-deep);
+  box-shadow: 4px 4px 0 rgba(20,10,15,0.15);
+  transform: translateY(-2px) translateX(-2px);
 }
 
 .contact-form {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease;
-  background: rgba(255,255,255,0.95);
+  background: var(--white);
   padding: 0 20px;
   margin-top: 10px;
-  border-radius: 20px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(20,10,15,0.08);
   font-family: serif;
   width: min(90vw, 500px);
   text-align: center;
-  align-items: center;
-  box-shadow: 0 10px 40px rgba(244,114,182,0.1);
+  box-shadow: 4px 4px 0 rgba(201,80,120,0.15);
+  position: relative;
+}
+
+/* フォーム上部のハート装飾を中央に */
+.contact-form.open::before {
+  content: '♥ ♥ ♥';
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  color: rgba(232,120,158,0.45);
+  letter-spacing: 8px;
+  padding-top: 8px;
+  margin-bottom: 4px;
 }
 
 .contact-form.open {
@@ -628,6 +841,7 @@ footer {
   font-weight: bold;
   margin-bottom: 4px;
   font-size: 14px;
+  letter-spacing: 0.04em;
 }
 
 .contact-form input,
@@ -636,38 +850,41 @@ footer {
   margin-bottom: 12px;
   padding: 10px 14px;
   box-sizing: border-box;
-  border: 1.5px solid rgba(244,114,182,0.28);
-  border-radius: 10px;
-  background: var(--white);
+  border: 1px solid rgba(20,10,15,0.13);
+  border-radius: 2px;
+  background: var(--off-white);
   color: var(--text-dark);
   font-family: serif;
-  transition: border-color 0.25s, box-shadow 0.25s;
   outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
   border-color: var(--pink);
-  box-shadow: 0 0 0 3px rgba(244,114,182,0.13);
+  box-shadow: 0 0 0 3px rgba(232,120,158,0.13);
 }
 
 .contact-form button {
-  background: linear-gradient(135deg, var(--pink) 0%, var(--lavender) 100%);
+  background: var(--black-soft);
   color: var(--white);
   padding: 12px 32px;
   border: none;
   cursor: pointer;
-  border-radius: 50px;
+  border-radius: 2px;
   font-family: serif;
   font-weight: bold;
-  letter-spacing: 0.05em;
-  box-shadow: 0 4px 20px rgba(244,114,182,0.28);
+  letter-spacing: 0.1em;
+  box-shadow: 3px 3px 0 var(--pink);
   transition: all 0.3s;
 }
 
+.contact-form button::before { content: '♥ '; }
+
 .contact-form button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(244,114,182,0.4);
+  background: var(--pink-deep);
+  transform: translateY(-2px) translateX(-2px);
+  box-shadow: 4px 4px 0 rgba(20,10,15,0.18);
 }
 
 /* Page Top ボタン */
@@ -685,33 +902,35 @@ footer {
 .top-btn {
   display: inline-block;
   padding: 14px 22px;
-  background: linear-gradient(135deg, var(--pink) 0%, var(--lavender) 100%);
+  background: var(--black-soft);
   color: var(--white);
   text-decoration: none;
-  border-radius: 50px;
+  border-radius: 2px;
   font-weight: bold;
+  letter-spacing: 0.08em;
   transition: all 0.35s ease;
-  box-shadow: 0 4px 20px rgba(244,114,182,0.28);
+  box-shadow: 3px 3px 0 var(--pink);
 }
 
+.top-btn::before { content: '♥ '; color: var(--pink-soft); }
+
 .top-btn:hover {
-  background: linear-gradient(135deg, var(--pink-deep) 0%, #a855f7 100%);
+  background: var(--pink-deep);
   color: var(--white);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(244,114,182,0.42);
+  transform: translateY(-3px) translateX(-3px);
+  box-shadow: 5px 5px 0 rgba(20,10,15,0.18);
 }
 
 #page-top a {
   display: block;
-  background: linear-gradient(135deg, var(--pink) 0%, var(--lavender) 100%);
+  background: var(--black-soft);
   color: var(--white);
   padding: 12px 16px;
-  border-radius: 50px;
+  border-radius: 2px;
   text-decoration: none;
   width: 100px;
-  opacity: 90%;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(244,114,182,0.22);
+  box-shadow: 3px 3px 0 var(--pink);
 }
 
 .skill-text {
@@ -725,51 +944,43 @@ footer {
    RESPONSIVE — タブレット (768px 以下)
 ===================== */
 @media (max-width: 768px) {
-  .heads {
-    left: 10px;
-    top: 8px;
-  }
-
-  .heads .icon {
-    width: 50px !important;
-    height: 50px !important;
-  }
-
-  .menu {
-    top: 8px;
-    right: 10px;
-    gap: 8px 12px;
-  }
-
-  .item-content {
-    padding: 28px 20px;
-  }
+  .heads { left: 10px; top: 8px; }
+  .heads .icon { width: 50px !important; height: 50px !important; }
+  .menu { top: 8px; right: 10px; gap: 8px 12px; }
+  .item-content { padding: 28px 20px; }
 
   .intro-container {
     flex-direction: column;
     padding: 40px 24px;
     text-align: center;
   }
-
-  #intro h2 {
-    padding-right: 0;
-    text-align: center;
-  }
-
-  .intro-photo {
-    width: 180px;
-  }
+  #intro h2 { padding-right: 0; text-align: center; }
+  .intro-photo { width: 180px; }
 
   .skill-icons {
     grid-template-columns: repeat(3, minmax(60px, 90px));
     gap: 20px;
   }
-
   .skill-icons li:nth-child(1) { grid-column: auto; }
   .skill-icons li:nth-child(2) { grid-column: auto; }
   .skill-icons li:nth-child(3) { grid-column: auto; }
   .skill-icons li:nth-child(4) { grid-column: auto; }
   .skill-icons li:nth-child(5) { grid-column: auto; }
+
+  /* タイトルハート非表示（位置ズレ防止） */
+  .split-text::before,
+  .split-text::after { display: none; }
+
+  /* Portfolio文字を1行・中央揃え */
+  .split-text {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    flex-wrap: nowrap;
+    font-size: clamp(18px, 5vw, 44px);
+    gap: 0 2px;
+    letter-spacing: 0.01em;
+  }
 }
 
 /* =====================
@@ -777,52 +988,39 @@ footer {
 ===================== */
 @media (max-width: 480px) {
   .menu {
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    top: auto; bottom: 0; left: 0; right: 0;
     width: 100%;
-    background: rgba(255,240,247,0.97);
-    border-top: 1px solid rgba(244,114,182,0.22);
+    background: rgba(253,248,251,0.97);
+    border-top: 1px solid rgba(20,10,15,0.08);
     justify-content: center;
     padding: 10px 0;
     gap: 8px 16px;
   }
+  .menu a { font-size: 12px; }
+  .heads .icon { display: none; }
+  .scroll-section { padding: 70px 12px 80px; }
+  .hero-typography { padding-bottom: 80px; }
 
-  .menu a {
-    font-size: 12px;
+  /* Portfolio文字を確実に1行・中央揃え */
+  .split-text {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    flex-wrap: nowrap;
+    font-size: clamp(30px, 4.5vw, 36px);
+    gap: 0 1px;
+    letter-spacing: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 
-  .heads .icon {
-    display: none;
-  }
+  /* スマホはタイトルハート非表示 */
+  .split-text::before,
+  .split-text::after { display: none; }
 
-  .scroll-section {
-    padding: 70px 12px 80px;
-  }
-
-  .hero-typography {
-    padding-bottom: 80px;
-  }
-
-  .chart-container {
-    padding: 20px 12px;
-    min-height: auto;
-  }
-
-  .skill-icons {
-    grid-template-columns: repeat(2, minmax(70px, 100px));
-  }
-
-  .intro-container {
-    padding: 28px 16px;
-  }
-
-  .intro-photo {
-    width: 140px;
-  }
-
-  #page-top {
-    bottom: 70px;
-  }
+  .chart-container { padding: 20px 12px; min-height: auto; }
+  .skill-icons { grid-template-columns: repeat(2, minmax(70px, 100px)); }
+  .intro-container { padding: 28px 16px; }
+  .intro-photo { width: 140px; }
+  #page-top { bottom: 70px; }
 }
