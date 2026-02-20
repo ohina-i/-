@@ -57,34 +57,36 @@
  
  
         // ============================
-        // Intersection Observer
-        // ============================
-        document.addEventListener('DOMContentLoaded', () => {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px 0px -100px 0px',
-                threshold: 0.1
-            };
+// Intersection Observer
+// ============================
  
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
+const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -100px 0px',
+    threshold: 0.1
+};
  
-            document.querySelectorAll('.scroll-item').forEach(item => {
-                observer.observe(item);
-            });
-        });
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+        }
+    });
+}, observerOptions);
+ 
+// 初期要素を監視
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.scroll-item').forEach(item => {
+        observer.observe(item);
+    });
+});
+ 
  
  
         document.addEventListener('DOMContentLoaded', () => {
  
             // レーダーチャート用のデータ
-            const labels = ["Photoshop", "Illustrator", "HTML", "CSS", "JavaScript"];
+            const labels = ["PS", "AI", "HTML", "CSS", "JS"];
             const values = [50, 60, 75, 60, 55];
             const maxValue = 100;
             const photoshop_max = 50;
@@ -127,8 +129,8 @@
  
             function drawAxesAndLabels() {
                 ctx.strokeStyle = "#aaa";
-                ctx.fillStyle = "#333";
-                ctx.font = "12px system-ui";
+                ctx.fillStyle = "navy";
+                ctx.font = "20px serif";
  
                 for (let i = 0; i < labels.length; i++) {
                     const angle = angleStep * i;
@@ -139,7 +141,7 @@
                     ctx.lineTo(x, y);
                     ctx.stroke();
  
-                    const labelPos = polarToCartesian(centerX, centerY, radius + 20, angle);
+                    const labelPos = polarToCartesian(centerX, centerY, radius + 25, angle);
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
                     ctx.fillText(labels[i], labelPos.x, labelPos.y);
@@ -228,3 +230,6 @@
  
             chartObserver.observe(chartContainer);
         });
+ 
+       
+ 
